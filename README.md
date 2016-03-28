@@ -1,9 +1,8 @@
 # qBittorrent-plugins
-===============================
 
 qBittorrent search engine plugins:
 * SumoTorrent (http://www.sumotorrent.sx) Python2 & Python3 supported
-* TNT Village (http://www.tntvillage.scambioetico.org)Python2 & Python3 supported
+* TNT Village (http://www.tntvillage.scambioetico.org) Python2 & Python3 supported
 
 Installation
 ------------

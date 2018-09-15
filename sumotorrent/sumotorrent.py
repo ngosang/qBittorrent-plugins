@@ -1,4 +1,4 @@
-#VERSION: 1.40
+#VERSION: 1.60
 #AUTHORS: Diego de las Heras (ngosang@hotmail.es)
 #         Christophe Dumez (chris@qbittorrent.org)
 

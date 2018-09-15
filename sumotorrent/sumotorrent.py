@@ -1,4 +1,4 @@
-#VERSION: 1.3
+#VERSION: 1.40
 #AUTHORS: Diego de las Heras (ngosang@hotmail.es)
 #         Christophe Dumez (chris@qbittorrent.org)
 
@@ -29,11 +29,13 @@
 try:
     #python3
     from html.parser import HTMLParser
-    from urllib.parse import quote
+    from urllib.parse import quote, urlencode
+    import http.client as httplib
 except ImportError:
     #python2
     from HTMLParser import HTMLParser
-    from urllib import quote
+    from urllib import quote, urlencode
+    import httplib
 
 #qBt
 from novaprinter import prettyPrinter
@@ -43,6 +45,24 @@ class sumotorrent(object):
     url = 'http://www.sumotorrent.sx'
     name = 'SumoTorrent'
     supported_categories = {'all': '', 'movies': '4', 'tv': '9', 'music': '0', 'games': '2', 'anime': '8', 'software': '1'}
+    trackers_list = ['udp://tracker.coppersurfer.tk:6969/announce',
+                    'udp://tracker.open-internet.nl:6969/announce',
+                    'udp://exodus.desync.com:6969/announce',
+                    'udp://tracker.internetwarriors.net:1337/announce',
+                    'udp://9.rarbg.com:2710/announce',
+                    'udp://tracker.opentrackr.org:1337/announce']
+    trackers = '&' + '&'.join(urlencode({'tr' : tracker}) for tracker in trackers_list)
+
+    def download_torrent(self, download_link):
+        # we need to follow the redirect to get the magnet link
+        conn = httplib.HTTPConnection(self.url[7:])
+        conn.request("GET", download_link.replace(self.url, ''))
+        response = conn.getresponse()
+        if response.status == 302:
+            redirection_target = response.getheader('Location')
+            print(redirection_target + self.trackers + " " + download_link)
+        else:
+            raise Exception('Error, please fill a bug report!')
 
     class MyHtmlParser(HTMLParser):
         def __init__(self, results, url, *args):

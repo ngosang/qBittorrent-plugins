@@ -12,4 +12,5 @@ Installation
   * Linux: `~/.local/share/data/qBittorrent/nova3/engines/`
   * OS X: `~/Library/Application Support/qBittorrent/nova3/engines/`
   * *Note: If you use Python 2 instead of Python 3, replace `nova3` by `nova`.*
-* The search engine should now be available.
+* Restart qBittorrent
+* The search engine should now be available
